@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maricar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="description" content="A beautiful Valentine's Day message for someone special.">
+    <meta property="og:title" content="Happy Valentine's Day!">
+    <meta property="og:description" content="A beautiful Valentine's Day message for someone special.">
+    <meta property="og:image" content="https://yourwebsite.com/valentine-image.jpg">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #d32f2f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            scroll-behavior: smooth;
+        }
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        video {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        audio {
+            display: none;
+        }
+        .button {
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        .button:hover {
+            background-color: #b71c1c;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+        #hidden-message {
+            display: none;
+            font-size: 1.5em;
+            color: #d32f2f;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px 25px;
+        }
+        .message-line {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: popOut 1s ease forwards;
+        }
+        @keyframes popOut {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d32f2f;
+            border-radius: 10px;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            video {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy Valentine's Day! 💖</h1>
+
+    <!-- Click Me Button -->
+    <button class="button" onclick="startPlayback()" aria-label="Click Me to Play Video and Audio">Click Me!</button>
+
+    <!-- Hidden Message -->
+    <div id="hidden-message">
+        <div class="message-line">To the one who makes my heart skip a beat,</div>
+        <div class="message-line">Every moment with you feels so sweet..</div>
+        <div class="message-line">On this special day, I just want to say,.</div>
+        <div class="message-line">You mean more to me than words can convey.</div>
+        <div class="message-line">Happy Valentine's Day!💕</div>
+    </div>
+
+    <!-- Video with playsinline attribute -->
+    <video id="valentine-video" loop playsinline controls loading="lazy">
+        <source src="your-video-file.mp4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Audio -->
+    <audio id="valentine-audio">
+        <source src="palagi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const video = document.getElementById('valentine-video');
+        const audio = document.getElementById('valentine-audio');
+        const hiddenMessage = document.getElementById('hidden-message');
+        const messageLines = document.querySelectorAll('.message-line');
+
+        function startPlayback() {
+            video.style.display = 'block';
+            video.play();
+            audio.play();
+            hiddenMessage.style.display = 'block';
+            document.querySelector('.button').style.display = 'none';
+
+            messageLines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = 1;
+                    line.style.transform = 'translateY(0)';
+                }, index * 800);
+            });
+        }
+
+        video.addEventListener('play', () => {
+            audio.currentTime = video.currentTime;
+        });
+
+        audio.addEventListener('ended', () => {
+            video.pause();
+            video.currentTime = 0;
+        });
+    </script>
+</body>
+</html>
